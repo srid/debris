@@ -1,0 +1,12 @@
+<html>
+  <body>
+	{% for page in pages %}
+	 <h2> <a href="/{{page.path}}/">{{ page.title }}</a> </h2>
+
+	 <p> {{ page.content }} </p>
+
+	 <p><small>Posted on {{ page.created_date }}</small></p>
+	 <hr />
+	{% endfor %}
+  </body>
+</html>
