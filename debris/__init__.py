@@ -4,7 +4,6 @@
 import os, cgi, sys
 from google.appengine.ext.webapp import template as gae_template
 
-
 def template(response, name, values):
     """Render the given template to the `response' object"""
     # find templates in ../templates/
@@ -16,9 +15,8 @@ def template(response, name, values):
 
 def SHELL():
     """Break the application and run the PDB shell"""
-    import pdb
-    debugger = pdb.Pdb(stdin=sys.__stdin__, stdout=sys.__stdout__)
-    debugger.set_trace(sys._getframe().f_back)
+    from pdb import Pdb
+    Pdb(stdin=sys.__stdin__, stdout=sys.__stdout__).set_trace(sys._getframe().f_back)
 
 def form_to_db(request, model_instance):
     """Set table attributes from form values"""
@@ -32,10 +30,7 @@ def form_to_db(request, model_instance):
         field_value = field_type(value)
         setattr(model_instance, key, field_value)
 
-class formed:
-    
-    def __init__(self, request):
-        self.request = request
-        
-    def get(self, key):
-        return cgi.escape(self.request.get(key))
+def rst2html(text):
+    from docutils import core
+    parts = core.publish_parts(text, writer_name='html4css1', settings_overrides={'_disable_config': True})
+    return parts['fragment']

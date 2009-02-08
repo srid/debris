@@ -2,36 +2,46 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from debris.db import Page
-from debris    import template, form_to_db, SHELL
+from debris    import template, form_to_db, SHELL, rst2html
 
 
 class MainPage(webapp.RequestHandler):
     def get(self):
         pages = Page.get_latest()
-        template(self.response, 'recent.html', {'pages': pages})
+        template(self.response, 'recent.html', {'pages': pages, 'rst2html': rst2html})
 
 class Admin_NewPage(webapp.RequestHandler):
     def get(self):
-        SHELL()
-        template(self.response, 'new-page.html', {})
+        page = Page.create_in_memory()
+        template(self.response, 'edit-page.html', {'page': page})
     def post(self):
-        page = Page()
+        page = Page.create_in_memory()
         form_to_db(self.request, page)
         page.put()
         self.redirect('/')
 
-class Admin_ViewEditPage(webapp.RequestHandler):
-    def get(self, path, edit):
-        if edit == None:
-            template(self.response, 'recent.html',
-                     {'pages': [Page.get_by_path(path)]})
-        else:
-            raise
+class Admin_ViewPage(webapp.RequestHandler):
+    def get(self, path):
+        page = Page.get_by_path(path)
+        template(self.response, 'recent.html',
+                 {'pages': [page], 'rst2html': rst2html}) 
+
+class Admin_EditPage(webapp.RequestHandler):
+    def get(self, path):
+        page = Page.get_by_path(path)
+        template(self.response, 'edit-page.html', {'page': page})
+        
+    def post(self, path):
+        page = Page.get_by_path(path)
+        form_to_db(self.request, page)
+        page.put()
+        self.redirect('/' + page.path)
 
 application = webapp.WSGIApplication(
     [('/', MainPage),
-     ('/([a-zA-Z/]+)/(\+edit)?', Admin_ViewEditPage),
-     ('/-/admin/newpage', Admin_NewPage)],
+     ('/-/admin/newpage', Admin_NewPage),
+     ('/-/admin/edit/([a-zA-Z/]+)', Admin_EditPage),
+     ('/([a-zA-Z/]+)', Admin_ViewPage)],
     debug=True)
 
 if __name__ == "__main__":

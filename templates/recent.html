@@ -1,12 +1,17 @@
-<html>
-  <body>
+{% extends "base.html" %}
+
+{% block content %}
 	{% for page in pages %}
-	 <h2> <a href="/{{page.path}}/">{{ page.title }}</a> </h2>
+	 <h2> <a href="/{{page.path}}">{{ page.title }}</a> </h2>
 
-	 <p> {{ page.content }} </p>
+	 <p> {{ page.content_as_html }} </p>
 
-	 <p><small>Posted on {{ page.created_date }}</small></p>
+	 <p>
+		<small>Posted on {{ page.created_date }}</small>
+		(<a href="/-/admin/edit/{{page.path}}">edit</a>)
+	 </p>
 	 <hr />
 	{% endfor %}
-  </body>
-</html>
+	
+	<a href="/-/admin/newpage">New Page</a>
+{% endblock %}

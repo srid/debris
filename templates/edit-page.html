@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form method="POST" action="">
+	  <div><input type="text" name="title"
+				  value="{{page.title}}" /> (title)</div>
+	  <div>http://debris.nearfar.org/<input type="path" name="path"
+											value="{{page.path}}" /> (path)</div>
+	  <div>
+		<textarea name="content" rows="10" cols="60">{{page.content}}</textarea>
+	    (<a href="https://addons.mozilla.org/en-US/firefox/addon/4125">firefox</a> and emacs are your friends)
+	  </div>
+	  <div><input type="checkbox" name="belongs_to_blog"
+				  {% if page.belongs_to_blog %}checked{% endif %} />
+		Belongs to blog</div>
+	  <div>
+		<input type="submit" value="Save" />
+		<input type="submit" value="Save as draft" {% if not page.draft %} disabled {% endif %} />
+	  </div>
+	</form>
+{% endblock %}

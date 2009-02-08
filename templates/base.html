@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/blueprint/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="/static/blueprint/print.css" type="text/css" media="print">
+    <!--[if IE]><link rel="stylesheet" href="/static/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+</head>
+<body>
+    <div class="container">
+        <div class="span-24">
+            <hr />
+            <h2 class="alt">Yet Another Debris Weblog</h2>
+            <hr />
+        </div>  
+        <div class="span-16">
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+        <div class="span-8 last">
+            <h3>About</h3>
+            <p>SFoo Bar</p>
+        </div>  
+    </div>
+</body>
+</html>
