@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{page.title}}{% endblock %}
+{% block content %}
+<div class="page">
+	 <h2>{{ page.title }}</h2>
+
+	 <p> {{ page.content_as_html }} </p>
+
+	 <p class="small">
+		Posted on {{ page.created_date }} by srid
+		(<a href="/-/admin/edit/{{page.path}}">edit</a>)
+	 </p>
+	 <hr />
+</div>  
+{% endblock %}

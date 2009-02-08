@@ -4,12 +4,14 @@
 import os, cgi, sys
 from google.appengine.ext.webapp import template as gae_template
 
+TEMPLATE_GROUP = 'srid' # /templates/srid/
 def template(response, name, values):
     """Render the given template to the `response' object"""
     # find templates in ../templates/
     path = os.path.join(os.path.dirname(__file__),
                         '..',
                         'templates',
+                        TEMPLATE_GROUP,
                         name)
     response.out.write(gae_template.render(path, values))
 
