@@ -3,17 +3,7 @@
 {% block title %}Yet Another Debris Weblog{% endblock %}
 {% block content %}
 	{% for page in pages %}
-	<div class="page">
-	 <h2> <a href="/{{page.path}}">{{ page.title }}</a> </h2>
-
-	 <p> {{ page.content_as_html }} </p>
-
-	 <p class="small">
-		Posted on {{ page.created_date }} by srid
-		(<a href="/-/admin/edit/{{page.path}}">edit</a>)
-	 </p>
-	 <hr />
-	 </div>
+       {% include "part-page.html" %}
 	{% endfor %}
 	
 {% endblock %}

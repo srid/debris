@@ -1,0 +1,10 @@
+<div class="page">
+    <h2><a href="/{{ page.path }}">{{ page.title }}</a></h2>
+
+    <p> {{ page.content|rstify }} </p>
+      
+    <p class="small">
+      {% block extra %}{% endblock %}
+    </p>
+	<hr />
+</div> 

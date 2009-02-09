@@ -36,3 +36,11 @@ def rst2html(text):
     from docutils import core
     parts = core.publish_parts(text, writer_name='html4css1', settings_overrides={'_disable_config': True})
     return parts['fragment']
+    
+register = gae_template.create_template_register()
+@register.filter
+def rstify(text):
+    return rst2html(text)
+    
+gae_template.register_template_library('debris') # this module itself
+    

@@ -1,5 +1,6 @@
 div.page h2 a{
 	text-decoration: none;
+	color: inherit;
 }
 
 div.footer {

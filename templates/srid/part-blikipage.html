@@ -1,0 +1,6 @@
+{% extends "part-page.html" %}
+
+{% block extra %}
+		Posted on {{ page.created_date }} by srid
+		(<a href="/-/admin/edit/{{page.path}}">edit</a>)
+{% endblock %}
