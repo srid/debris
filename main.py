@@ -3,8 +3,8 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from debris.db import Page
-from debris    import template, form_to_db, SHELL, rst2html
+from debris.page import Page
+from debris      import template, form_to_db, SHELL
 
 
 class MainPage(webapp.RequestHandler):

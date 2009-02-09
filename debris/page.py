@@ -1,7 +1,14 @@
 from google.appengine.ext import db
 from debris import rst2html
 
-class Page(db.Model):
+class BasePage(object):
+    
+    def content_as_html(self):
+        return rst2html(self.content)
+    content_as_html = property(fget=content_as_html)
+
+
+class Page(db.Model, BasePage):
     """Represent a webpage in database"""
     title           = db.StringProperty(multiline=False)
     path            = db.StringProperty(multiline=False)
@@ -9,10 +16,6 @@ class Page(db.Model):
     content         = db.TextProperty()
     belongs_to_blog = db.BooleanProperty()
     draft           = db.BooleanProperty()
-    
-    def content_as_html(self):
-        return rst2html(self.content)
-    content_as_html = property(fget=content_as_html)
 
     @staticmethod
     def create_in_memory():
@@ -35,3 +38,10 @@ class Page(db.Model):
                            path)[0]
     
         
+class SpecialPage(BasePage):
+    """Represent a special bliki page - not stored in DB, but act on
+    the DB data, for example.
+    """
+    
+
+    
