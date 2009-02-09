@@ -49,5 +49,8 @@ application = webapp.WSGIApplication(
      ('/([a-zA-Z/]+)', Admin_ViewPage)],
     debug=True)
 
-if __name__ == "__main__":
+def main():
     run_wsgi_app(application)
+
+if __name__ == "__main__":
+    main()
