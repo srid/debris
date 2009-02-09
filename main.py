@@ -4,7 +4,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from debris.page import BlikiPage, AllPages
-from debris      import template, form_to_db, SHELL
+from debris      import template, form_to_db, SHELL, admin_only
 
 
 class MainPage(webapp.RequestHandler):
@@ -13,9 +13,11 @@ class MainPage(webapp.RequestHandler):
         template(self.response, 'recent.html', {'pages': pages})
 
 class Admin_NewPage(webapp.RequestHandler):
+    @admin_only
     def get(self):
         page = BlikiPage.create_in_memory()
         template(self.response, 'edit.html', {'page': page})
+    @admin_only
     def post(self):
         page = BlikiPage.create_in_memory()
         form_to_db(self.request, page)
@@ -31,10 +33,12 @@ class Admin_ViewPage(webapp.RequestHandler):
                  {'page': page}) 
 
 class Admin_EditPage(webapp.RequestHandler):
+    @admin_only
     def get(self, path):
         page = BlikiPage.get_by_path(path)
         template(self.response, 'edit.html', {'page': page})
         
+    @admin_only
     def post(self, path):
         page = BlikiPage.get_by_path(path)
         form_to_db(self.request, page)
@@ -50,9 +54,9 @@ class Admin_ViewSpecialPage(webapp.RequestHandler):
 application = webapp.WSGIApplication(
     [(r'/', MainPage),
      (r'/-/admin/newpage', Admin_NewPage),
-     (r'/-/admin/edit/([a-zA-Z/]+)', Admin_EditPage),
-     (r'/Special/([a-zA-Z/]+)', Admin_ViewSpecialPage),
-     (r'/([a-zA-Z/]+)', Admin_ViewPage)],
+     (r'/-/admin/edit/([0-9a-zA-Z/]+)', Admin_EditPage),
+     (r'/Special/([0-9a-zA-Z/]+)', Admin_ViewSpecialPage),
+     (r'/([0-9a-zA-Z/]+)', Admin_ViewPage)],
     debug=True)
 
 def main():

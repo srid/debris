@@ -3,6 +3,7 @@
 
 import os, cgi, sys
 from google.appengine.ext.webapp import template as gae_template
+from google.appengine.api import users
 
 TEMPLATE_GROUP = 'srid' # /templates/srid/
 def template(response, name, values):
@@ -43,4 +44,16 @@ def rstify(text):
     return rst2html(text)
     
 gae_template.register_template_library('debris') # this module itself
-    
+
+def admin_only(handler_method):
+    """Decorator to restrict a method to be run by site administrator only"""
+    def check_login(self, *args, **kwargs):
+        user = users.get_current_user()
+        is_admin = users.is_current_user_admin()
+        if not user:
+            self.redirect(users.create_login_url(self.request.uri))
+        elif is_admin:
+            handler_method(self, *args, **kwargs)
+        else:
+            self.error(403)
+    return check_login

@@ -1,3 +1,9 @@
+div.container {
+	/* since blueprintcss sets the font-size to 75%, we
+	 * increase the size again here */
+	font-size: 120%; 
+}
+
 div.page h2 a{
 	text-decoration: none;
 	color: inherit;

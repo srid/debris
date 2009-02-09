@@ -4,13 +4,14 @@
 
 {% block content %}
 	<form method="POST" action="">
-	  <div><input type="text" name="title"
+	  <div><input type="text" name="title" size="75"
 				  value="{{page.title}}" /> (title)</div>
-	  <div>http://debris.nearfar.org/<input type="path" name="path"
+	  <div>http://debris.nearfar.org/<input type="path" name="path" size="50"
 											value="{{page.path}}" /> (path)</div>
 	  <div>
-		<textarea name="content" rows="10" cols="60">{{page.content}}</textarea>
-	    (<a href="https://addons.mozilla.org/en-US/firefox/addon/4125">firefox</a> and emacs are your friends)
+		<textarea style="height: 600px; width: 600px;" name="content">{{page.content}}</textarea>
+	    (<a href="https://addons.mozilla.org/en-US/firefox/addon/4125">firefox</a>
+	     and emacs are your friends)
 	  </div>
 	  <div><input type="checkbox" name="belongs_to_blog"
 				  {% if page.belongs_to_blog %}checked{% endif %} />
