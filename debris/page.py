@@ -21,10 +21,10 @@ class BlikiPage(db.Model):
         return page
         
     @staticmethod
-    def get_latest():
-        """Get the last 10 pages that were created recently"""
+    def get_recent_blog_entries():
+        """Get the last 10 pages that were created recently and belongs to blog"""
         return db.GqlQuery(
-            "SELECT * FROM BlikiPage ORDER BY created_date DESC LIMIT 10")
+            "SELECT * FROM BlikiPage WHERE belongs_to_blog = True ORDER BY created_date DESC LIMIT 10")
 
     @staticmethod
     def get_by_path(path):

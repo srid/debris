@@ -10,7 +10,14 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 16 times in query history.
+# Used once in query history.
+- kind: BlikiPage
+  properties:
+  - name: belongs_to_blog
+  - name: created_date
+    direction: desc
+
+# Used 23 times in query history.
 - kind: BlikiPage
   properties:
   - name: created_date

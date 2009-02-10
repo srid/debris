@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Yet Another Debris Bliki{% endblock %}
+{% block content %}
+
+	<div class="span-24">
+		<p>Welcome to the <b>bliki</b>. A <a href="http://en.wikipedia.org/wiki/Bliki">bliki</a>
+		is a combination of blog and wiki. There are two ways to
+		natigate this site:</p>
+	</div>
+
+	<div class="span-12">
+		<div class="box">
+			<p>Read the <a href="/blog">blog</a>, a listing of pages in reverse
+			chronological order:</p>
+			<ul class="raw">
+			{% for page in blog_pages %}
+		       <li><span class="queit small">{{ page.created_date|date:"d M Y"  }}</span> -
+			   <a href="/{{page.path}}">{{ page.title }}</a>
+			   </li>
+			{% endfor %}
+		  </ul>	
+		</div>
+	</div>
+	
+	<div class="span-12 last">
+		<div class="box">
+			<p>Or navigate by categories..</p>
+		</div>
+	</div>
+	
+	<div class="span-24">
+		<p>To know more about this bliki site, see <a href="/AboutThisSite">AboutThisSite</a>.</p>
+	</div>
+	
+{% endblock %}

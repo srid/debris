@@ -12,3 +12,9 @@ div.page h2 a{
 div.footer {
 	text-align: right;
 }
+
+ul.raw {
+	list-style-type: none;
+	margin: 0 0 0 1em;
+	padding: 0;
+}
