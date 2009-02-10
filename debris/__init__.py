@@ -1,7 +1,7 @@
 # I keep utility and wrapper code here
 # So simply do `from debris import foo' to use the feature `foo'
 
-import os, cgi, sys
+import os, cgi, sys, logging
 from google.appengine.ext.webapp import template as gae_template
 from google.appengine.api import users
 
@@ -24,12 +24,23 @@ def SHELL():
 def form_to_db(request, model_instance):
     """Set table attributes from form values"""
     for key, field in model_instance.fields().items():
-        value = cgi.escape(request.get(key))
-        if value == "": # not available in form
-            continue
+        value = request.get(key, default_value=None)
+        
         field_type = field.data_type
         if field_type is basestring:
             field_type = str # basestring cannot be initiated
+            
+        # Skip fields that are not part of form (value == None), except in the
+        # case of HTML checkbox where the corresponding form field in request.get
+        # is 'absent by design' if the checkbox is unchecked
+        # See http://code.google.com/appengine/docs/python/tools/webapp/requestdata.html
+        # to understand how Google works around this HTML spec wart.
+        if value == None and field_type is not bool:
+            continue
+        
+        if value is not None:
+            value = cgi.escape(value)
+            
         field_value = field_type(value)
         setattr(model_instance, key, field_value)
 
