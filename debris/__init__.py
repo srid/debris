@@ -2,6 +2,8 @@
 # So simply do `from debris import foo' to use the feature `foo'
 
 import os, cgi, sys, logging
+from contextlib import contextmanager
+
 from google.appengine.ext.webapp import template as gae_template
 from google.appengine.api import users
 
@@ -77,3 +79,19 @@ def rstify(text):
     
 gae_template.register_template_library('debris') # this module itself
 
+
+@contextmanager
+def StringIO():
+    """Add support for 'with' statement to StringIO - http://bugs.python.org/issue1286
+    """
+    try:
+        from cStringIO import StringIO
+    except ImportError:
+        from StringIO import StringIO
+        
+    sio = StringIO()
+    
+    try:
+        yield sio
+    finally:
+        sio.close()

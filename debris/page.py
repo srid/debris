@@ -11,6 +11,9 @@ class BlikiPage(db.Model):
     belongs_to_blog = db.BooleanProperty()
     draft           = db.BooleanProperty()
     
+    def get_url(self):
+        return self.path # abs url?
+    
     @staticmethod
     def create_in_memory():
         "Create a new `Page' that is not persisted until `put()' is called"
@@ -24,7 +27,15 @@ class BlikiPage(db.Model):
     def get_recent_blog_entries():
         """Get the last 10 pages that were created recently and belongs to blog"""
         return db.GqlQuery(
-            "SELECT * FROM BlikiPage WHERE belongs_to_blog = True ORDER BY created_date DESC LIMIT 10")
+            "SELECT * FROM BlikiPage WHERE belongs_to_blog = True ORDER BY created_date DESC LIMIT 10"
+        )
+        
+    @staticmethod
+    def get_recent_entries():
+        """Get the last 10 pages that were created recently"""
+        return db.GqlQuery(
+            "SELECT * FROM BlikiPage ORDER BY created_date DESC LIMIT 10"
+        )
 
     @staticmethod
     def get_by_path(path):
