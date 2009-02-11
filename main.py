@@ -4,7 +4,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from debris.page import BlikiPage, AllPages
-from debris      import template, form_to_db, SHELL, admin_only
+from debris      import template, form_to_db, SHELL
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -28,11 +28,10 @@ class ViewSpecialPage(webapp.RequestHandler):
         template(self.response, 'specialpage.html', {'page': page})
         
 class Admin_NewPage(webapp.RequestHandler):
-    @admin_only
     def get(self):
         page = BlikiPage.create_in_memory()
         template(self.response, 'edit.html', {'page': page})
-    @admin_only
+
     def post(self):
         page = BlikiPage.create_in_memory()
         form_to_db(self.request, page)
@@ -41,12 +40,10 @@ class Admin_NewPage(webapp.RequestHandler):
         self.redirect('/')
         
 class Admin_EditPage(webapp.RequestHandler):
-    @admin_only
     def get(self, path):
         page = BlikiPage.get_by_path(path)
         template(self.response, 'edit.html', {'page': page})
         
-    @admin_only
     def post(self, path):
         page = BlikiPage.get_by_path(path)
         form_to_db(self.request, page)

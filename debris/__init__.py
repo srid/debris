@@ -14,7 +14,20 @@ def template(response, name, values):
                         'templates',
                         TEMPLATE_GROUP,
                         name)
+    
+    # generate the greeting urls (login/logout)
+    user = users.get_current_user()
+    if user:
+        greeting = "Welcome %s! <a href=\"%s\">Logout</a>" % \
+                   (user.nickname(), users.create_logout_url("/"))
+    else:
+        greeting = "<a href=\"%s\">Login</a>" % users.create_login_url("/")
+        
+    values.update({
+        'auth_greeting': greeting
+    })
     response.out.write(gae_template.render(path, values))
+    
 
 def SHELL():
     """Break the application and run the PDB shell"""
@@ -56,15 +69,3 @@ def rstify(text):
     
 gae_template.register_template_library('debris') # this module itself
 
-def admin_only(handler_method):
-    """Decorator to restrict a method to be run by site administrator only"""
-    def check_login(self, *args, **kwargs):
-        user = users.get_current_user()
-        is_admin = users.is_current_user_admin()
-        if not user:
-            self.redirect(users.create_login_url(self.request.uri))
-        elif is_admin:
-            handler_method(self, *args, **kwargs)
-        else:
-            self.error(403)
-    return check_login
