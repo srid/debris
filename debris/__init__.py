@@ -67,8 +67,8 @@ def rst2html(text):
         settings_overrides={
             '_disable_config': True,
             'embed_stylesheet': False,
-            'stylesheet_path': 'static/html4css1/html4css1.css',
-            'template': 'static/docutils/html4css1/template.txt'
+            'stylesheet_path': 'data/html4css1/html4css1.css',
+            'template': 'data/docutils/html4css1/template.txt'
         })
     return parts['fragment']
     
