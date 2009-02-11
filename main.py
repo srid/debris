@@ -1,4 +1,4 @@
-import logging
+import os, glob, sys, logging
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -63,6 +63,10 @@ application = webapp.WSGIApplication(
     debug=True)
 
 def main():
+    root = os.path.dirname(__file__)
+    for ziplib in glob.glob(os.path.join(root, '3rdparty', '*.zip')):
+        logging.info("Adding 3rdparty library '%s' to sys.path" % ziplib)
+        sys.path.insert(0, ziplib)
     run_wsgi_app(application)
 
 if __name__ == "__main__":

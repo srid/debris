@@ -59,7 +59,15 @@ def form_to_db(request, model_instance):
 
 def rst2html(text):
     from docutils import core
-    parts = core.publish_parts(text, writer_name='html4css1', settings_overrides={'_disable_config': True})
+    parts = core.publish_parts(
+        text,
+        writer_name='html4css1',
+        settings_overrides={
+            '_disable_config': True,
+            'embed_stylesheet': False,
+            'stylesheet_path': 'static/html4css1/html4css1.css',
+            'template': 'static/docutils/html4css1/template.txt'
+        })
     return parts['fragment']
     
 register = gae_template.create_template_register()
