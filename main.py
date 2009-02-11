@@ -1,10 +1,13 @@
-import os, glob, sys, logging
+import logging
+
+import import_wrapper
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 from debris.page import BlikiPage, AllPages
 from debris      import template, form_to_db, SHELL
+
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -50,7 +53,6 @@ class Admin_EditPage(webapp.RequestHandler):
         page.put()
         logging.info('BlikiPage "%s" modified' % page.path) 
         self.redirect('/' + page.path)
-        
 
 
 application = webapp.WSGIApplication(
@@ -63,10 +65,6 @@ application = webapp.WSGIApplication(
     debug=True)
 
 def main():
-    root = os.path.dirname(__file__)
-    for ziplib in glob.glob(os.path.join(root, '3rdparty', '*.zip')):
-        logging.info("Adding 3rdparty library '%s' to sys.path" % ziplib)
-        sys.path.insert(0, ziplib)
     run_wsgi_app(application)
 
 if __name__ == "__main__":
