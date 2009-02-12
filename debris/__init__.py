@@ -7,6 +7,9 @@ from contextlib import contextmanager
 from google.appengine.ext.webapp import template as gae_template
 from google.appengine.api import users
 
+from docutils import core
+
+
 TEMPLATE_GROUP = 'srid' # /templates/srid/
 def template(response, name, values):
     """Render the given template to the `response' object"""
@@ -60,7 +63,6 @@ def form_to_db(request, model_instance):
         setattr(model_instance, key, field_value)
 
 def rst2html(text):
-    from docutils import core
     parts = core.publish_parts(
         text,
         writer_name='html4css1',

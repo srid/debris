@@ -61,6 +61,12 @@ class ViewRSSPage(webapp.RequestHandler):
         else:
             raise Exception, 'unknown RSS type "%s"' % name
         
+class SearchPage(webapp.RequestHandler):
+    def get(self):
+        q = self.request.get('q')
+        results = BlikiPage.search(q)
+        template(self.response, 'search.html', {'results': results, 'q': q})
+        
 class Admin_NewPage(webapp.RequestHandler):
     def get(self):
         page = BlikiPage.create_in_memory()
@@ -91,6 +97,7 @@ application = webapp.WSGIApplication(
      (r'/blog', BlogPage),
      (r'/-/admin/newpage', Admin_NewPage),
      (r'/-/admin/edit/([0-9a-zA-Z/]+)', Admin_EditPage),
+     (r'/Search', SearchPage),
      (r'/RSS/([0-9a-zA-Z]+)', ViewRSSPage),
      (r'/Special/([0-9a-zA-Z/]+)', ViewSpecialPage),
      (r'/([0-9a-zA-Z/]+)', ViewBlikiPage)],

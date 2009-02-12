@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+from google.appengine.ext import search
 from debris import rst2html
 
 
@@ -13,6 +14,12 @@ class BlikiPage(db.Model):
     
     def get_url(self):
         return self.path # abs url?
+    
+    @staticmethod
+    def search(keywords):
+        query = search.SearchableQuery('BlikiPage')
+        query.Search(keywords)
+        return query.Run()
     
     @staticmethod
     def create_in_memory():

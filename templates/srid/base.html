@@ -25,7 +25,11 @@
 			<a href="/">Home</a> | <a href="/-/admin/newpage">New Page</a> |
 			<a href="/AboutThisSite">About</a> |
 			{{ auth_greeting }} |
-			<a href="http://creativecommons.org/licenses/by/2.5/ca/">Rights</a>
+			<a href="http://creativecommons.org/licenses/by/2.5/ca/">Rights</a> |
+			<form action="/Search" method="GET">
+				<input type="text" name="q" />
+				<input type="submit" value="search" />
+			</form>
 		</div>	
     </div>
 </body>

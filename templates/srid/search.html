@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Search '{{q}}'{% endblock %}
+
+{% block content %}
+  <h2>Search '{{q}}'</h2>
+  {% for result in results %}
+	<li><a href="/{{ result.path }}">{{ result.title }}</a>: {{ ressult.content|truncatewords:10 }} </li>
+  {% endfor %}
+{% endblock %}
