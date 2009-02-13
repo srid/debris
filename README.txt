@@ -10,9 +10,6 @@ Milestone 0.1
    Features
    --------
    
-		- Categories:               pages should be navigatable by categories
-		                            (just like wikipedia?)
-									
 		- Backup:                   periodically download the datastore data
 		                            in case google goes out of business or does
 									something 'evil'
