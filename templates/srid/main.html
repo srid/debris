@@ -25,7 +25,7 @@
 			   <a href="/{{page.path}}">{{ page.title }}</a>
 			   </li>
 			{% endfor %}
-		  </ul>	
+			</ul>	
 		</div>
 	</div>
 	
@@ -33,7 +33,15 @@
 		<div class="box">
 			<p>Or navigate by tags..</p>
 		
-			(Alright, how do we aggregate appengine's ListProperty??)
+			<p>(Alright, how do we aggregate appengine's ListProperty?? -- for now see pages
+			that do not belong to blog)</p>
+			
+			<ul class="raw">
+			{% for page in non_blog_pages %}
+		       <li><a href="/{{page.path}}">{{ page.title }}</a>
+			   </li>
+			{% endfor %}
+			</ul>	
 		</div>
 	</div>
 	

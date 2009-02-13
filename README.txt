@@ -20,6 +20,7 @@ Milestone 0.1
 		- Code Cleanups
 		- Test cases
 		- Paging
+		- Tag clouds and other tag navigation
 		- Respond by email:         comments are not supported, but there
 		                            should be a way to 'respond' to every page
 								    (for UI: see reply option in google groups)

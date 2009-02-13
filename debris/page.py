@@ -47,6 +47,13 @@ class BlikiPage(db.Model):
         )
         
     @staticmethod
+    def get_non_blog_pages():
+        """Get all pages that do NOT belong to blog"""
+        return db.GqlQuery(
+            "SELECT * FROM BlikiPage WHERE belongs_to_blog = False ORDER BY path DESC"
+        )
+        
+    @staticmethod
     def get_all_by_tag(tag):
         """Get all pages by tag"""
         return db.GqlQuery(

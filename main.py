@@ -14,7 +14,9 @@ from debris      import template, form_to_db, rst2html, StringIO, SHELL
 class MainPage(webapp.RequestHandler):
     def get(self):
         blog_pages = BlikiPage.get_recent_blog_entries()
-        template(self.response, 'main.html', {'blog_pages': blog_pages})
+        non_blog_pages = BlikiPage.get_non_blog_pages()
+        template(self.response, 'main.html', {'blog_pages': blog_pages,
+                                              'non_blog_pages': non_blog_pages})
         
 class BlogPage(webapp.RequestHandler):
     def get(self):
