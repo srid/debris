@@ -1,7 +1,7 @@
 # I keep utility and wrapper code here
 # So simply do `from debris import foo' to use the feature `foo'
 
-import os, cgi, sys, logging
+import os, cgi, sys, logging, re
 from contextlib import contextmanager
 
 from google.appengine.ext.webapp import template as gae_template
@@ -19,17 +19,12 @@ def template(response, name, values):
                         'templates',
                         TEMPLATE_GROUP,
                         name)
-    
-    # generate the greeting urls (login/logout)
-    user = users.get_current_user()
-    if user:
-        greeting = "Welcome %s! <a href=\"%s\">Logout</a>" % \
-                   (user.nickname(), users.create_logout_url("/"))
-    else:
-        greeting = "<a href=\"%s\">Login</a>" % users.create_login_url("/")
-        
+
+    # Values common to all templates go here    
     values.update({
-        'auth_greeting': greeting
+        'is_admin':    users.is_current_user_admin(),
+        'login_url':   users.create_login_url("/"),
+        'logout_url':  users.create_logout_url("/")
     })
     response.out.write(gae_template.render(path, values))
     
@@ -58,9 +53,16 @@ def form_to_db(request, model_instance):
         
         if value is not None:
             value = cgi.escape(value)
+        
+        # if __form_set_<key>__ is defined, use it instead of 'setattr'
+        try:
+            setter = getattr(model_instance, '__form_set_%s__' % key)
+            field_value = value # need not to apply `field_type` as that will be done by the above custom setter
+        except AttributeError:
+            setter = lambda v: setattr(model_instance, key, v)
+            field_value = field_type(value)
             
-        field_value = field_type(value)
-        setattr(model_instance, key, field_value)
+        setter(field_value)
 
 def rst2html(text):
     parts = core.publish_parts(
@@ -78,6 +80,21 @@ register = gae_template.create_template_register()
 @register.filter
 def rstify(text):
     return rst2html(text)
+    
+display_tag_re = re.compile('([a-z])([A-Z])')
+@register.filter
+def display_tag(tag):
+    """Display tag in readable way.
+    Eg: display_tag("GoogleAppEngine") = "Google App Engine"
+    """
+    return display_tag_re.sub(r'\1 \2', tag)
+    
+@register.filter
+def display_tags(tag_list):
+    tags = []
+    for tag in tag_list:
+        tags.append('<a href="/tag/%s">%s</a>' % (tag, display_tag(tag)))
+    return ', '.join(tags)
     
 gae_template.register_template_library('debris') # this module itself
 

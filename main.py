@@ -7,7 +7,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 from PyRSS2Gen import RSS2, RSSItem, Guid
 
-from debris.page import BlikiPage, AllPages
+from debris.page import BlikiPage
 from debris      import template, form_to_db, rst2html, StringIO, SHELL
 
 
@@ -25,13 +25,13 @@ class ViewBlikiPage(webapp.RequestHandler):
     def get(self, path):
         page = BlikiPage.get_by_path(path)
         template(self.response, 'blikipage.html',
-                 {'page': page}) 
-
-class ViewSpecialPage(webapp.RequestHandler):
-    def get(self, path):
-        page = AllPages()
-        template(self.response, 'specialpage.html', {'page': page})
+                 {'page': page})
         
+class ViewTagPage(webapp.RequestHandler):
+    def  get(self, tag):
+        pages = BlikiPage.get_all_by_tag(tag)
+        template(self.response, 'tag.html', {'tag': tag, 'pages': pages})
+
 class ViewRSSPage(webapp.RequestHandler):
     def get(self, name):
         if name == "all":
@@ -99,7 +99,7 @@ application = webapp.WSGIApplication(
      (r'/-/admin/edit/([0-9a-zA-Z/]+)', Admin_EditPage),
      (r'/Search', SearchPage),
      (r'/RSS/([0-9a-zA-Z]+)', ViewRSSPage),
-     (r'/Special/([0-9a-zA-Z/]+)', ViewSpecialPage),
+     (r'/tag/([0-9a-zA-Z]+)', ViewTagPage),
      (r'/([0-9a-zA-Z/]+)', ViewBlikiPage)],
     debug=True)
 

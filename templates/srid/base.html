@@ -22,14 +22,20 @@
             {% endblock %}
         </div>
 		<div class="span-24 small footer">
-			<a href="/">Home</a> | <a href="/-/admin/newpage">New Page</a> |
-			<a href="/AboutThisSite">About</a> |
-			{{ auth_greeting }} |
-			<a href="http://creativecommons.org/licenses/by/2.5/ca/">Rights</a> |
+			{% if is_admin %}
+				<a href="/-/admin/newpage">New Page</a> |
+				<a href="{{ logout_url }}"><b>Logout</b></a> |
+			{% else %}
+				<a href="{{ login_url }}" style="color: white;">Login</a>
+			{% endif %}
+			<a href="/">Home</a> |
+			<a href="/AboutThisSite">About</a>
+				
+			<!-- a href="http://creativecommons.org/licenses/by/2.5/ca/">Rights</a> |
 			<form action="/Search" method="GET">
 				<input type="text" name="q" />
 				<input type="submit" value="search" />
-			</form>
+			</form> -->
 		</div>	
     </div>
 </body>

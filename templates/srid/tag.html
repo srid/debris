@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Pages tagged '{{tag|display_tag}}'{% endblock %}
+{% block content %}
+	{% for page in pages %}
+       {% include "part-blikipage.html" %}
+	{% endfor %}
+	
+{% endblock %}

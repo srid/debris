@@ -1,6 +1,15 @@
 {% extends "part-page.html" %}
 
 {% block extra %}
-		Created on {{ page.created_date|date:"d M Y"  }} by srid
-		(<a href="/-/admin/edit/{{page.path}}">edit</a>)
+		<b>Created</b> on {{ page.created_date|date:"d M Y"  }} by srid
+		
+		{% if page.tags %}
+			<br/>
+			<b>Tagged</b> {{ page.tags|display_tags }}
+		{% endif %}
+		
+		{% if is_admin %}
+			<br/>
+			(<a href="/-/admin/edit/{{page.path}}">edit</a>)
+		{% endif %}
 {% endblock %}

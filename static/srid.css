@@ -18,3 +18,18 @@ ul.raw {
 	margin: 0 0 0 1em;
 	padding: 0;
 }
+
+p.page_meta {
+	font-size: 80%;
+	color: #999999;
+	float: right;
+}
+
+p.page_meta a {
+	text-decoration: none;
+	color: inherit;
+}
+
+p.page_meta a:hover {
+	color: black;
+}
