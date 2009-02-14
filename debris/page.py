@@ -1,8 +1,5 @@
 from google.appengine.ext import db
 from google.appengine.ext import search
-from debris import rst2html
-
-from debris import SHELL
 
 
 class BlikiPage(db.Model):

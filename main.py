@@ -1,5 +1,5 @@
-from __future__ import with_statement
 import import_wrapper
+
 import logging
 
 from google.appengine.ext import webapp
@@ -8,7 +8,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from PyRSS2Gen import RSS2, RSSItem, Guid
 
 from debris.page import BlikiPage
-from debris      import template, form_to_db, rst2html, StringIO, SHELL
+from debris      import template, form_to_db, rst2html, StringIO
 
 
 class MainPage(webapp.RequestHandler):

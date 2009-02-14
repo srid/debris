@@ -1,4 +1,7 @@
-import os, sys, glob, logging
+import os
+import sys
+import glob
+import logging
 
 # Add 3rdparty/*.zip to sys.path so that we can import them seamlessly
 root = os.path.dirname(__file__)

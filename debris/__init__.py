@@ -1,7 +1,10 @@
 # I keep utility and wrapper code here
 # So simply do `from debris import foo' to use the feature `foo'
 
-import os, cgi, sys, logging, re
+import os
+import cgi
+import sys
+import re
 from contextlib import contextmanager
 
 from google.appengine.ext.webapp import template as gae_template
