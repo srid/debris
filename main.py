@@ -1,8 +1,7 @@
 from __future__ import with_statement
 import import_wrapper
-
+import meta
 import logging
-
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -10,7 +9,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from PyRSS2Gen import RSS2, RSSItem, Guid
 
 from debris.page import BlikiPage
-from debris      import template, form_to_db, rst2html, StringIO
+from debris      import template, form_to_db, site_url, rst2html, StringIO, SHELL
 
 
 class MainPage(webapp.RequestHandler):
@@ -38,16 +37,17 @@ class ViewRSSPage(webapp.RequestHandler):
             for page in pages:
                 rss_items.append(RSSItem(
                     title = page.title,
-                    link = page.get_url(),
+                    link = site_url(self.request, page.path),
+                    author = meta.SITE_AUTHOR,
                     description = rst2html(page.content),
                     guid = Guid(page.get_url()),
                     pubDate = page.created_date
                 ))
             
             rss = RSS2(
-                title = 'Yet Another Debris Bliki',
-                link = "http://www.google.com/", # XXX
-                description = "Foo",
+                title = meta.SITE_TITLE,
+                link = site_url(self.request),
+                description = meta.SITE_DESCRIPTION,
                 items = rss_items
             )
             

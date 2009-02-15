@@ -66,6 +66,11 @@ def form_to_db(request, model_instance):
             field_value = field_type(value)
             
         setter(field_value)
+    
+def site_url(req, path=''):
+    """Return the absolute site URL appending the `path' element if necessary"""
+    base_url = req.url[ : len(req.url) - len(req.path)]
+    return base_url + '/' + path
 
 def rst2html(text):
     parts = core.publish_parts(
