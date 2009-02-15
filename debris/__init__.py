@@ -12,6 +12,8 @@ from google.appengine.api import users
 
 from docutils import core
 
+import meta
+
 
 TEMPLATE_GROUP = 'srid' # /templates/srid/
 def template(response, name, values):
@@ -27,7 +29,8 @@ def template(response, name, values):
     values.update({
         'is_admin':    users.is_current_user_admin(),
         'login_url':   users.create_login_url("/"),
-        'logout_url':  users.create_logout_url("/")
+        'logout_url':  users.create_logout_url("/"),
+        'site_title':  meta.SITE_TITLE,
     })
     
     if 'messages' not in values:
