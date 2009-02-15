@@ -20,14 +20,14 @@
 		<p><label for="tagsID">Tags (eg: "Python GoogleAppEngine CookbookRecipes")</label><br/>
 		   <input  id="tagsID" type="text" name="tags" size="75" value="{{page.tags|join:" " }}" />
 
-		<p><input type="checkbox" name="belongs_to_blog"
-				  {% if page.belongs_to_blog %}checked{% endif %} />
-		Belongs to blog
+		<p><input type="checkbox" name="rss_worthy"
+				  {% if page.rss_worthy %}checked{% endif %} />
+		RSS worthy
 	    </p>
 		
 	  <div>
 		<input type="submit" value="Save" />
-		<input type="submit" value="Save as draft" {% if not page.draft %} disabled {% endif %} />
+		<!-- input type="submit" value="Save as draft" {% if not page.draft %} disabled {% endif %} / -->
 	  </div>
       </fieldset>
 	</form>

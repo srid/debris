@@ -9,11 +9,10 @@ class BlikiPage(db.Model):
     created_date    = db.DateTimeProperty(auto_now_add=True)
     content         = db.TextProperty()
     tags            = db.StringListProperty()
-    belongs_to_blog = db.BooleanProperty()
+    rss_worthy      = db.BooleanProperty()
     draft           = db.BooleanProperty()
     
     def __form_set_tags__(self, tags_list_as_string):
-        #SHELL()
         tags = tags_list_as_string.split(' ')
         tags = [tag.strip() for tag in tags]
         self.tags = tags
@@ -32,22 +31,20 @@ class BlikiPage(db.Model):
         "Create a new `Page' that is not persisted until `put()' is called"
         page = BlikiPage()
         page.draft = True
-        page.belongs_to_blog = True
+        page.rss_worthy = True
         page.title = page.path = page.content = "" # they cannot be None
         return page
         
     @staticmethod
-    def get_recent_blog_entries():
-        """Get all pages that were created recently and belongs to blog"""
+    def get_all_rss_worthy_pages():
         return db.GqlQuery(
-            "SELECT * FROM BlikiPage WHERE belongs_to_blog = True ORDER BY created_date DESC"
+            "SELECT * FROM BlikiPage WHERE rss_worthy = True ORDER BY created_date DESC"
         )
         
     @staticmethod
-    def get_non_blog_pages():
-        """Get all pages that do NOT belong to blog"""
+    def get_all_pages():
         return db.GqlQuery(
-            "SELECT * FROM BlikiPage WHERE belongs_to_blog = False ORDER BY path DESC"
+            "SELECT * FROM BlikiPage ORDER BY created_date DESC"
         )
         
     @staticmethod
@@ -57,13 +54,6 @@ class BlikiPage(db.Model):
             "SELECT * FROM BlikiPage WHERE tags = :1", tag
         )
         
-    @staticmethod
-    def get_recent_entries():
-        """Get the last 10 pages that were created recently"""
-        return db.GqlQuery(
-            "SELECT * FROM BlikiPage ORDER BY created_date DESC LIMIT 10"
-        )
-
     @staticmethod
     def get_by_path(path):
         return db.GqlQuery("SELECT * FROM BlikiPage WHERE path = :1",

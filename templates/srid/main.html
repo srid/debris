@@ -5,34 +5,16 @@
 
 	<div class="span-24">
 		<p>Welcome to the <b>bliki</b>. A <a href="http://en.wikipedia.org/wiki/Bliki">bliki</a>
-		is a combination of blog and wiki. There are two ways to
-		natigate this site:</p>
+		is a combination of blog and wiki.</p>
 	</div>
 
-	<div class="span-12">
+	<div class="span-24">
 		<div class="box">
-			<p>Read the <a href="/blog">blog</a>, a listing of pages in reverse
-			chronological order:</p>
+			<p>A listing of pages in reverse chronological order:</p>
 			<ul class="raw">
-			{% for page in blog_pages %}
+			{% for page in pages %}
 		       <li><span class="queit small">{{ page.created_date|date:"d M Y"  }}</span> -
 			   <a href="/{{page.path}}">{{ page.title }}</a>
-			   </li>
-			{% endfor %}
-			</ul>	
-		</div>
-	</div>
-	
-	<div class="span-12 last">
-		<div class="box">
-			<p>Or navigate by tags..</p>
-		
-			<p>(Alright, how do we aggregate appengine's ListProperty?? -- for now see pages
-			that do not belong to blog)</p>
-			
-			<ul class="raw">
-			{% for page in non_blog_pages %}
-		       <li><a href="/{{page.path}}">{{ page.title }}</a>
 			   </li>
 			{% endfor %}
 			</ul>	

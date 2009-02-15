@@ -1,6 +1,8 @@
+from __future__ import with_statement
 import import_wrapper
 
 import logging
+
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -13,15 +15,8 @@ from debris      import template, form_to_db, rst2html, StringIO
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        blog_pages = BlikiPage.get_recent_blog_entries()
-        non_blog_pages = BlikiPage.get_non_blog_pages()
-        template(self.response, 'main.html', {'blog_pages': blog_pages,
-                                              'non_blog_pages': non_blog_pages})
-        
-class BlogPage(webapp.RequestHandler):
-    def get(self):
-        pages = BlikiPage.get_recent_blog_entries()
-        template(self.response, 'recent.html', {'pages': pages})
+        pages = BlikiPage.get_all_pages()
+        template(self.response, 'main.html', {'pages': pages})
         
 class ViewBlikiPage(webapp.RequestHandler):
     def get(self, path):
@@ -38,7 +33,7 @@ class ViewRSSPage(webapp.RequestHandler):
     def get(self, name):
         if name == "all":
             # RSS of  newly created pages
-            pages = BlikiPage.get_recent_entries()
+            pages = BlikiPage.get_all_rss_worthy_pages()
             rss_items = []
             for page in pages:
                 rss_items.append(RSSItem(
@@ -96,7 +91,6 @@ class Admin_EditPage(webapp.RequestHandler):
 
 application = webapp.WSGIApplication(
     [(r'/', MainPage),
-     (r'/blog', BlogPage),
      (r'/-/admin/newpage', Admin_NewPage),
      (r'/-/admin/edit/([0-9a-zA-Z/]+)', Admin_EditPage),
      (r'/Search', SearchPage),
