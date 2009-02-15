@@ -26,7 +26,11 @@ class ViewBlikiPage(webapp.RequestHandler):
 class ViewTagPage(webapp.RequestHandler):
     def  get(self, tag):
         pages = BlikiPage.get_all_by_tag(tag)
-        template(self.response, 'tag.html', {'tag': tag, 'pages': pages})
+        template(self.response, 'tag.html', {
+            'tag': tag,
+            'pages': pages,
+            'messages': ["You are viewing pages tagged '<b>%s</b>'" % tag]
+        })
 
 class ViewRSSPage(webapp.RequestHandler):
     def get(self, name):

@@ -14,13 +14,15 @@
 </head>
 <body>
     <div class="container">
-        <div class="span-24 header">
+        <div class="span-24">
             &nbsp;
-			<p class="highlight">
-				Please note that this site is a <b>test deployment environment</b> for
-				a software that I am currently writing. It will eventually become a place
-				for me to write; until then what you will see here is just random text.
-			</p>	
+			{% if messages %}
+			{% for m in messages %}
+			<p style="text-align: center;"><span class="highlight">
+				{{ m }}
+			</span></p>
+			{% endfor %}
+			{% endif %}
 		
         </div>  
         <div class="span-24">
