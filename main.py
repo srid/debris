@@ -3,13 +3,13 @@ import import_wrapper
 import meta
 import logging
 
-from google.appengine.ext import webapp
+from google.appengine.ext             import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from PyRSS2Gen import RSS2, RSSItem, Guid
-
-from debris.page import BlikiPage
-from debris      import template, form_to_db, site_url, rst2html, StringIO, SHELL
+import debris.filters # load and register the filters
+from debris.page      import BlikiPage
+from debris.html      import template, site_url, form_to_db
+from debris.rss       import rss_worthy_pages_xml
 
 
 class MainPage(webapp.RequestHandler):
@@ -33,34 +33,9 @@ class ViewTagPage(webapp.RequestHandler):
         })
 
 class ViewRSSPage(webapp.RequestHandler):
-    def get(self, name):
-        if name == "all":
-            # RSS of  newly created pages
-            pages = BlikiPage.get_all_rss_worthy_pages()
-            rss_items = []
-            for page in pages:
-                rss_items.append(RSSItem(
-                    title = page.title,
-                    link = site_url(self.request, page.path),
-                    author = meta.SITE_AUTHOR,
-                    description = rst2html(page.content),
-                    guid = Guid(page.get_url()),
-                    pubDate = page.created_date
-                ))
-            
-            rss = RSS2(
-                title = meta.SITE_TITLE,
-                link = site_url(self.request),
-                description = meta.SITE_DESCRIPTION,
-                items = rss_items
-            )
-            
-            self.response.headers['Content-Type'] = 'application/rss+xml'
-            with StringIO() as sio:
-                rss.write_xml(sio)
-                self.response.out.write(sio.getvalue())
-        else:
-            raise Exception, 'unknown RSS type "%s"' % name
+    def get(self):
+        self.response.headers['Content-Type'] = 'application/rss+xml'
+        self.response.out.write(rss_worthy_pages_xml(self.request))
         
 class SearchPage(webapp.RequestHandler):
     def get(self):
@@ -98,7 +73,7 @@ application = webapp.WSGIApplication(
      (r'/-/admin/newpage', Admin_NewPage),
      (r'/-/admin/edit/([0-9a-zA-Z/]+)', Admin_EditPage),
      (r'/Search', SearchPage),
-     (r'/RSS/([0-9a-zA-Z]+)', ViewRSSPage),
+     (r'/rss', ViewRSSPage),
      (r'/tag/([0-9a-zA-Z]+)', ViewTagPage),
      (r'/([0-9a-zA-Z/]+)', ViewBlikiPage)],
     debug=True)
