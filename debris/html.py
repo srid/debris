@@ -87,6 +87,7 @@ def rst2html(text):
             '_disable_config': True,
             'embed_stylesheet': False,
             'stylesheet_path': 'data/html4css1/html4css1.css',
-            'template': 'data/docutils/html4css1/template.txt'
+            'template': 'data/docutils/html4css1/template.txt',
+            'initial_header_level': 3
         })
     return parts['fragment']
