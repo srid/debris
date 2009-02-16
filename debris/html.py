@@ -57,6 +57,7 @@ def template(response, name, values):
         'login_url':   users.create_login_url("/"),
         'logout_url':  users.create_logout_url("/"),
         'site_title':  meta.SITE_TITLE,
+        'site_author': meta.SITE_AUTHOR
     })
     
     if 'messages' not in values:
