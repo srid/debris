@@ -12,7 +12,7 @@ import meta
 
 def form_to_db(request, model_instance):
     """Copy the FORM values to the given entity properties (datastore model fields)
-	"""
+    """
     for key, field in model_instance.fields().items():
         value = request.get(key, default_value=None)
         
@@ -42,7 +42,8 @@ def form_to_db(request, model_instance):
         setter(field_value)
 
 def template(response, name, values):
-    """Render the given template to the `response' object"""
+    """Render the given template to the `response' object
+    """
     # find templates in ../templates/
     path = os.path.join(os.path.dirname(__file__),
                         '..',
@@ -64,28 +65,28 @@ def template(response, name, values):
     # Testing warning (XXX: remove this once content is cleaned up at www.nearfar.org)
     values['messages'].append(
         "Please note that this site is a <b>test deployment environment</b> for " +
-		"a software that I am currently writing. It will eventually become a place " +
-		"for me to write; until then what you will see here is just random text."
+        "a software that I am currently writing. It will eventually become a place " +
+        "for me to write; until then what you will see here is just random text."
     )
     
     response.out.write(gae_template.render(path, values))
     
 def site_url(req, path=''):
     """Return the absolute site URL appending the `path' element if necessary
-	"""
+    """
     base_url = req.url[ : len(req.url) - len(req.path)]
     return base_url + '/' + path
 
 def rst2html(text):
-	"""Convert reStructedText into a HTML fragment
-	"""
-	parts = core.publish_parts(
-		text,
-		writer_name='html4css1',
-		settings_overrides={
-			'_disable_config': True,
-			'embed_stylesheet': False,
-			'stylesheet_path': 'data/html4css1/html4css1.css',
-			'template': 'data/docutils/html4css1/template.txt'
-		})
-	return parts['fragment']
+    """Convert reStructedText into a HTML fragment
+    """
+    parts = core.publish_parts(
+        text,
+        writer_name='html4css1',
+        settings_overrides={
+            '_disable_config': True,
+            'embed_stylesheet': False,
+            'stylesheet_path': 'data/html4css1/html4css1.css',
+            'template': 'data/docutils/html4css1/template.txt'
+        })
+    return parts['fragment']

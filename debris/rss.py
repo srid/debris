@@ -9,28 +9,30 @@ from debris.util import file_write_to_string
 
 
 def rss_worthy_pages_xml(request):
-	"""Return the rss xml content containing all newly created pages
-	that are 'rss worthy'
-	"""
-	pages = BlikiPage.get_all_rss_worthy_pages()
-	rss_items = []
-	
-	for page in pages:
-		rss_items.append(RSSItem(
-			title = page.title,
-			link = site_url(request, page.path),
-			author = meta.SITE_AUTHOR,
-			description = rst2html(page.content),
-			guid = Guid(site_url(request, page.path)),
-			pubDate = page.created_date
-		))
-	
-	rss = RSS2(
-		title = meta.SITE_TITLE,
-		link = site_url(request),
-		description = meta.SITE_DESCRIPTION,
-		items = rss_items
-	)
-	
-	return file_write_to_string(rss.write_xml)
-	
+    """Return the rss xml content containing all newly created pages
+    that are 'rss worthy'
+    """
+    pages = BlikiPage.get_all_rss_worthy_pages()
+    rss_items = []
+    
+    for page in pages:
+        rss_items.append(
+            RSSItem(
+                title = page.title,
+                link = site_url(request, page.path),
+                author = meta.SITE_AUTHOR,
+                description = rst2html(page.content),
+                guid = Guid(site_url(request, page.path)),
+                pubDate = page.created_date
+            )
+        )
+   
+    rss = RSS2(
+        title = meta.SITE_TITLE,
+        link = site_url(request),
+        description = meta.SITE_DESCRIPTION,
+        items = rss_items
+    )
+    
+    return file_write_to_string(rss.write_xml)
+        

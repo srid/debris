@@ -2,9 +2,9 @@
 # So simply do `from debris import foo' to use the feature `foo'
 
 try:
-	from cStringIO import StringIO
+    from cStringIO import StringIO
 except ImportError:
-	from StringIO import StringIO
+    from StringIO import StringIO
 
 
 def file_write_to_string(file_writer):

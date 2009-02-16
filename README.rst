@@ -5,7 +5,6 @@ created date and tag meta data. You can list pages by tag.
 
 **Nice to have features:**
 
- - Code Cleanups
  - Test cases
  - Save as draft
  - Paging
