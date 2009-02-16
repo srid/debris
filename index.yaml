@@ -24,7 +24,7 @@ indexes:
   - name: path
     direction: desc
 
-# Used 4 times in query history.
+# Used 5 times in query history.
 - kind: BlikiPage
   properties:
   - name: created_date
