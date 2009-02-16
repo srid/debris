@@ -62,13 +62,6 @@ def template(response, name, values):
     if 'messages' not in values:
         values['messages'] = []
         
-    # Testing warning (XXX: remove this once content is cleaned up at www.nearfar.org)
-    values['messages'].append(
-        "Please note that this site is a <b>test deployment environment</b> for " +
-        "a software that I am currently writing. It will eventually become a place " +
-        "for me to write; until then what you will see here is just random text."
-    )
-    
     response.out.write(gae_template.render(path, values))
     
 def site_url(req, path=''):
