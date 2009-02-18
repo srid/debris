@@ -41,6 +41,7 @@ def form_to_db(request, model_instance):
             
         setter(field_value)
 
+# XXX: refactor - http://github.com/btbytes/gappsites/blob/76facbb0ebef7aab8ad9ff18ffdbc37a62a86026/utils.py#L12
 def template(response, name, values):
     """Render the given template to the `response' object
     """
