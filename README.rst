@@ -5,8 +5,7 @@ created date and tag meta data. You can list pages by tag.
 
 **Nice to have features:**
 
- - Test cases
- - Save as draft
+ - Edit in emacs (using ATOM API?) as it has got a good ReST major mode.
  - Paging
  - Tag clouds and other tag navigation
  - Respond by email (like Google Groups UI)
