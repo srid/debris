@@ -65,6 +65,10 @@ def template(response, name, values):
         values['messages'] = []
         
     response.out.write(gae_template.render(path, values))
+
+def error_404(handler):
+    handler.error(404)
+    handler.response.out.write('Page <b>not</b> found!')
     
 def site_url(req, path=''):
     """Return the absolute site URL appending the `path' element if necessary

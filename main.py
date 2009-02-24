@@ -8,7 +8,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 import debris.filters # load and register the filters
 from debris.page      import BlikiPage
-from debris.html      import template, site_url, form_to_db
+from debris.html      import template, site_url, form_to_db, error_404
 from debris.rss       import rss_worthy_pages_xml
 
 
@@ -20,8 +20,11 @@ class MainPage(webapp.RequestHandler):
 class ViewBlikiPage(webapp.RequestHandler):
     def get(self, path):
         page = BlikiPage.get_by_path(path)
-        template(self.response, 'blikipage.html',
-                 {'page': page})
+        if page is None:
+            error_404(self)
+        else:
+            template(self.response, 'blikipage.html',
+                     {'page': page})
         
 class ViewTagPage(webapp.RequestHandler):
     def  get(self, tag):

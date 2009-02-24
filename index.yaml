@@ -36,7 +36,7 @@ indexes:
   - name: path
     direction: desc
 
-# Unused in query history -- copied from input.
+# Used once in query history.
 - kind: BlikiPage
   properties:
   - name: rss_worthy

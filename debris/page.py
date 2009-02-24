@@ -56,6 +56,9 @@ class BlikiPage(db.Model):
         
     @staticmethod
     def get_by_path(path):
-        return db.GqlQuery("SELECT * FROM BlikiPage WHERE path = :1",
-                           path)[0]
+        q = db.GqlQuery("SELECT * FROM BlikiPage WHERE path = :1", path)
+        if q.count() > 0:
+            return q[0]
+        else:
+            return None # none found
     
