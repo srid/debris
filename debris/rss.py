@@ -8,11 +8,10 @@ from debris.page import BlikiPage
 from debris.util import file_write_to_string
 
 
-def rss_worthy_pages_xml(request):
+def rss_worthy_pages_xml(request, pages):
     """Return the rss xml content containing all newly created pages
     that are 'rss worthy'
     """
-    pages = BlikiPage.get_all_rss_worthy_pages()
     rss_items = []
     
     for page in pages:

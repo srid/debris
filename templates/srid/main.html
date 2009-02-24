@@ -9,7 +9,8 @@
 			<ul class="raw">
 			{% for page in pages %}
 		       <li><span class="queit small">{{ page.created_date|date:"d M Y"  }}</span> -
-			   <a href="/{{page.path}}">{{ page.title }}</a>
+			   <a {% if page.draft %} class="draft" {% endif %}
+				  href="/{{page.path}}">{{ page.title }}</a>
 			   </li>
 			{% endfor %}
 			</ul>	

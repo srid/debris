@@ -4,6 +4,10 @@ div.container {
 	font-size: 120%; 
 }
 
+a.draft { 
+  color: red !important;
+}
+
 div.page h2 a{
 	text-decoration: none;
 	color: inherit;

@@ -20,6 +20,11 @@
 		<p><label for="tagsID">Tags (eg: "Python GoogleAppEngine CookbookRecipes")</label><br/>
 		   <input  id="tagsID" type="text" name="tags" size="75" value="{{page.tags|join:" " }}" />
 
+		<p><input type="checkbox" name="draft"
+				  {% if page.draft %}checked{% endif %} />
+		Draft
+	    </p>
+
 		<p><input type="checkbox" name="rss_worthy"
 				  {% if page.rss_worthy %}checked{% endif %} />
 		RSS worthy
