@@ -30,6 +30,11 @@
 		RSS worthy
 	    </p>
 		
+		<p><input type="checkbox" name="has_comments"
+				  {% if page.rss_worthy %}checked{% endif %} />
+		Has comments
+	    </p>
+
 	  <div>
 		<input type="submit" value="Save" accesskey="s" />
 		<!-- input type="submit" value="Save as draft" {% if not page.draft %} disabled {% endif %} / -->

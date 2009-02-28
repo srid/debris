@@ -32,8 +32,7 @@ class ViewBlikiPage(webapp.RequestHandler):
         if page is None:
             error_404(self)
         else:
-            template(self.response, 'blikipage.html',
-                     {'page': page})
+            template(self.response, 'blikipage.html', {'page': page, 'single': True})
         
 class ViewTagPage(webapp.RequestHandler):
     def  get(self, tag):

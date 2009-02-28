@@ -6,11 +6,12 @@ class BlikiPage(db.Model):
     """Represent a webpage in database"""
     title           = db.StringProperty(multiline=False)
     path            = db.StringProperty(multiline=False)
-    created_date    = db.DateTimeProperty(auto_now_add=True)
     content         = db.TextProperty()
     tags            = db.StringListProperty()
-    rss_worthy      = db.BooleanProperty()
     draft           = db.BooleanProperty()
+    created_date    = db.DateTimeProperty(auto_now_add=True)    
+    rss_worthy      = db.BooleanProperty()
+    has_comments    = db.BooleanProperty()
     
     def __form_set_tags__(self, tags_list_as_string):
         tags = tags_list_as_string.split(' ')
