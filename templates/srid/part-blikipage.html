@@ -1,7 +1,8 @@
 {% extends "part-page.html" %}
 
 {% block extra %}
-		<b>Created</b> on {{ page.created_date|date:"d M Y"  }} by srid
+		<b>Created</b> on {{ page.created_date|date:"d M Y"  }} by
+                <a href="/SridharRatnakumar">srid</a>
 		
 		{% if page.tags %}
 			<br/>
