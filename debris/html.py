@@ -28,8 +28,8 @@ def form_to_db(request, model_instance):
         if value == None and field_type is not bool:
             continue
         
-        if value is not None:
-            value = cgi.escape(value)
+        #if value is not None:
+        #    value = cgi.escape(value)
         
         # if __form_set_<key>__ is defined, use it instead of 'setattr'
         try:

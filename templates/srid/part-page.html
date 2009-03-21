@@ -2,6 +2,7 @@
     <h2><a {% if page.draft %} class="draft" {% endif %} href="/{{ page.path }}">{{ page.title }}</a></h2>
 
     <p> {{ page.content|rstify }} </p>
+
       
     <p class="page_meta">
       {% block extra %}{% endblock %}

@@ -37,3 +37,9 @@ p.page_meta a {
 p.page_meta a:hover {
 	color: black;
 }
+
+/* used by Pygments sourcecode rst directive */
+div.highlight {
+	background-color: transparent;
+	padding-left: 20px;
+}

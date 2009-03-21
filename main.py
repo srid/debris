@@ -12,6 +12,7 @@ from debris.page      import BlikiPage
 from debris.html      import template, site_url, form_to_db, error_404
 from debris.rss       import rss_worthy_pages_xml
 
+
 def draft_filter(pages):
     """Filter the list of `pages' by removing 'draft' pages if admin is not logged in
     """
